@@ -11,17 +11,24 @@ public class Role implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "role")
     private String role;
 
-    @ManyToMany
-    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @ManyToMany(mappedBy = "roles")
     private Set<User> users;
 
-    public Role() {
+    public Role (){}
+
+    public Role(String role) {
+        if (role.contains("ADMIN")) {
+            this.id = 1L;
+        } else if (role.contains("USER")) {
+            this.id = 2L;
+        }
+        this.role = role;
     }
 
     public Long getId() {
@@ -50,6 +57,11 @@ public class Role implements GrantedAuthority {
 
     @Override
     public String getAuthority() {
+        return role;
+    }
+
+    @Override
+    public String toString() {
         return role;
     }
 }

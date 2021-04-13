@@ -19,11 +19,14 @@ public class User implements UserDetails {
     @Column(name = "username", unique = true)
     private String username;
 
-    @Column(name = "surname")
-    private String surname;
+    @Column(name = "lastname")
+    private String lastname;
 
-    @Column(name = "year")
-    private int year;
+    @Column(name = "age")
+    private int age;
+
+    @Column (name = "email")
+    private String email;
 
     @Column (name = "password")
     private String password;
@@ -36,11 +39,12 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(Long id, String username, String surname, int year, String password, Set<Role> roles) {
+    public User(Long id, String username, String lastname, int age, String email, String password, Set<Role> roles) {
         this.id = id;
         this.username = username;
-        this.surname = surname;
-        this.year = year;
+        this.lastname = lastname;
+        this.age = age;
+        this.email = email;
         this.password = password;
         this.roles = roles;
     }
@@ -61,20 +65,28 @@ public class User implements UserDetails {
         this.username = username;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
-    public int getYear() {
-        return year;
+    public int getAge() {
+        return age;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -91,6 +103,15 @@ public class User implements UserDetails {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getRoleToString() {
+        StringBuilder roles = new StringBuilder();
+        for (Role role : getRoles()) {
+            roles.append(role.getRole()
+                    .replaceAll("ROLE_", "") + " ");
+        }
+        return roles.toString();
     }
 
     @Override
