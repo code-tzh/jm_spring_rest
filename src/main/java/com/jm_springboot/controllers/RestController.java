@@ -64,7 +64,8 @@ public class RestController {
     }
 
     @DeleteMapping(value = "/deleteUser/{id}")
-    private void deleteUser(@PathVariable Long id) {
+    public ResponseEntity<?> deleteUser(@PathVariable("id") Long id) {
         userService.deleteUser(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
