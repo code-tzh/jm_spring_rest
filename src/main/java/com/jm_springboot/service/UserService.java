@@ -2,16 +2,19 @@ package com.jm_springboot.service;
 
 import com.jm_springboot.model.Role;
 import com.jm_springboot.model.User;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
+@Transactional
 public interface UserService {
-    List<User> allUsers();
-    void addUser(User user);
-    void deleteUser(Long id);
-    User editUser(User user);
-    User getById(Long id);
-    User getUserByName(String username);
-    List<Role> getRoleList();
-    public Role getRole(String role);
+    public List<User> allUsers();
+    public User showUser(Long id);
+    public User getUserByName(String username);
+    public void addUser(User user);
+    public void updateUser(User user, Long id);
+    public void deleteUser(Long id);
+    public Set<Role> getAllRoles();
+    public Role getRoleByName(String role);
 }

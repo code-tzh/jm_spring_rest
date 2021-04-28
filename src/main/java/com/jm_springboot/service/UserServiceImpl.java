@@ -1,58 +1,70 @@
 package com.jm_springboot.service;
 
-import com.jm_springboot.dao.UserDao;
+import com.jm_springboot.repositories.RoleRepository;
 import com.jm_springboot.model.Role;
 import com.jm_springboot.model.User;
+import com.jm_springboot.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
+@EnableJpaRepositories(basePackages ={"com.jm_springboot.repositories"})
 @Transactional
-public class UserServiceImpl implements com.jm_springboot.service.UserService {
+public class UserServiceImpl implements UserService {
+
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
     @Autowired
-    private UserDao userDao;
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+    }
 
     @Override
     public List<User> allUsers() {
-        return userDao.allUsers();
+        return userRepository.findAll();
     }
 
     @Override
-    public void addUser(User user) {
-        if (user.getId() == null) {
-            userDao.addUser(user);
-        } else userDao.editUser(user);
-    }
-
-    @Override
-    public void deleteUser(Long id) {
-        userDao.deleteUser(id);
-    }
-
-    @Override
-    public User editUser(User user) {
-        return userDao.editUser(user);
-    }
-
-    @Override
-    public User getById(Long id) {
-        return userDao.getById(id);
+    public User showUser(Long id) {
+        return userRepository.findById(id).orElse(null);
     }
 
     @Override
     public User getUserByName(String username) {
-        return userDao.getUserByName(username);
+        return userRepository.getUserByEmail(username);
     }
 
     @Override
-    public List <Role> getRoleList() {
-        return userDao.getRoleList();
+    public void addUser(User user) {
+        userRepository.save(user);
     }
 
     @Override
-    public Role getRole(String role) { return userDao.getRole(role); }
+    public void updateUser(User user, Long id) {
+        User updateUser= userRepository.findById(id).orElse(null);
+        userRepository.saveAndFlush(updateUser);
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    @Override
+    public Set<Role> getAllRoles() {
+        return new HashSet<>(roleRepository.findAll());
+    }
+
+    @Override
+    public Role getRoleByName(String role) {
+        return roleRepository.findByRole(role);
+    }
 }

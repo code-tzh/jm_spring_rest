@@ -48,29 +48,27 @@
             <h1>User information-page</h1>
 
             <div class="card bg-light mb-3 tab-pane fade show active"
-             id="users" role="tabpanel" aria-labelledby="users-tab">
-            <h5 class="card-header">About user</h5>
+                 role="tabpanel" aria-labelledby="users-tab">
+                <h5 class="card-header">About user</h5>
                 <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Age</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                        </tr>
-                        </thead>
-                            <tbody>
-                            <tr th:each ="user : ${user}">
-                                <td th:utext="${user.getId()}"></td>
-                                <td th:utext="${user.getUsername()}"></td>
-                                <td th:utext="${user.getLastname()}"></td>
-                                <td th:utext="${user.getAge()}"></td>
-                                <td th:utext="${user.getEmail()}"></td>
-                                <td th:text="${user.getRoleToString()}"></td>
-                            </tr>
-                            </tbody>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Age</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <td th:text="${user.id}">
+                    <td th:text="${user.username}">
+                    <td th:text="${user.lastname}">
+                    <td th:text="${user.age}">
+                    <td th:text="${user.email}">
+                    <td th:text="${user.roleToString}">
+                    </tbody>
                 </table>
             </div>
         </div>
