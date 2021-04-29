@@ -17,12 +17,10 @@ import java.util.List;
 public class RestController {
 
     private final UserService userService;
-    private final UserRepository userRepository;
 
     @Autowired
-    public RestController(UserService userService, UserRepository userRepository) {
+    public RestController(UserService userService) {
         this.userService = userService;
-        this.userRepository = userRepository;
     }
 
     @GetMapping(value = "/users")
@@ -40,7 +38,7 @@ public class RestController {
     @GetMapping(value ="/infoUser")
     @ResponseBody
     public User infoUser(@AuthenticationPrincipal User user_authentication){
-        User user = userRepository.getUserByEmail(user_authentication.getEmail());
+        User user = userService.getUserByName(user_authentication.getEmail());
         return user;
     }
 
