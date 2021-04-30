@@ -19,11 +19,11 @@ function getUsers() {
                 <td>
                 <button class="btn btn-info btn-md" type="button"
                 data-toggle="modal" data-target="#editModal" 
-                onclick="upModal(${user.id})">Edit</button></td>
+                onclick="fillModal(${user.id})">Edit</button></td>
                 <td>
                 <button class="btn btn-danger btn-md" type="button"
                 data-toggle="modal" data-target="#deleteModal" 
-                onclick="upModal(${user.id})">Delete</button></td>
+                onclick="fillModal(${user.id})">Delete</button></td>
               </tr>`;
             });
             document.getElementById("usersTable").innerHTML = temp;
@@ -31,9 +31,9 @@ function getUsers() {
 }
 getUsers()
 
-//------------------updateModals--------------------------------
+//------------------fillModals--------------------------------
 
-function upModal(id) {
+function fillModal(id) {
     fetch("http://localhost:8080/rest/findUser/" + id, {
         headers: {
             'Accept': 'application/json',
