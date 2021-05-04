@@ -9,12 +9,12 @@ import java.util.Set;
 
 @Transactional
 public interface UserService {
-    public List<User> allUsers();
-    public User showUser(Long id);
-    public User getUserByName(String username);
-    public void addUser(User user);
-    public void updateUser(User user, Long id);
-    public void deleteUser(Long id);
-    public Set<Role> getAllRoles();
-    public Role getRoleByName(String role);
+    List<User> allUsers();
+    User showUser(Long id);
+    User getUserByName(String username);
+    void addUser(User user);
+    void updateUser(User user, Long id);
+    void deleteUser(Long id);
+    Set<Role> getAllRoles();
+    Role getRoleByName(String role);
 }
